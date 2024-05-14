@@ -14,15 +14,11 @@ jobs:
     - name: Get Date
       id: get-date
       run: |
-          echo "date=$(docker pull registry.hf.space/majendakin7kin-lop:cpu-8a12caf)" >> $GITHUB_OUTPUT
+          echo "date=$(docker run -p 7860:7860 --platform=linux/amd64 registry.hf.space/majendakin7kin-lop:cpu-8a12caf python app.py)"
       shell: bash
     - uses: actions/cache@v4
       with:
           path: path/to/dependencies
           key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('**/lockfiles') }}
     
-    - name: Build the Docker image 
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: echo #docker run -p 7860:7860 --platform=linux/amd64 registry.hf.space/majendakin7kin-lop:cpu-8a12caf python app.py
-
-
+    
