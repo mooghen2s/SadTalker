@@ -15,7 +15,7 @@ jobs:
       continue-on-error: true
     - run: docker login registry.hf.space -u majendakin7kin -p ${{ secrets.PAS1 }}
     - name: Build the Docker image
-      run: docker run -it -p 7860:7860 --platform=linux/amd64 \
+      run: docker run -p 7860:7860 --platform=linux/amd64 \
         registry.hf.space/majendakin7kin-lop:cpu-8a12caf python app.py
 
 
