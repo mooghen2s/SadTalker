@@ -13,10 +13,9 @@ jobs:
     - uses: satackey/action-docker-layer-caching@v0.0.11
       # Ignore the failure of a step and avoid terminating the job.
       continue-on-error: true
-    - run: docker login -u chriskm12 -p ${{ secrets.PAS }}
+    - run: docker login registry.hf.space -u majendakin7kin -p ${{ secrets.PAS1 }}
     - name: Build the Docker image
       run: |
-        docker build . -t chriskm12/sad:v1
-        docker push chriskm12/sad:v1
+       docker run -it -p 7860:7860 --platform=linux/amd64 registry.hf.space/majendakin7kin-lop:cpu-8a12caf python app.py
 
 
