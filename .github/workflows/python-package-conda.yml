@@ -15,14 +15,18 @@ jobs:
       with:
         python-version: '3.8'
         cache: 'pip'
-        cache-dependency-path: '**/requirements.txt'
-    - run: pip install -r ./requirements.txt
+        cache-dependency-path: '*/requirements.txt'
+    - run: pip install -r ./requirements.txt    
+    - name: Get Date
+      id: get-date
+      run: echo "::set-output name=date::$(.\a.bat)"
     - name: cache
       uses: actions/cache@v3
       with:
         path: |
            ./checkpoints
            ./gfpgan
+        key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}
     - uses: FedericoCarboni/setup-ffmpeg@v3
       id: setup-ffmpeg
       with:
@@ -31,15 +35,10 @@ jobs:
       run: |
         echo "a" >> .\checkpoints\a.txt
         echo "a" >> .\gfpgan\a.txt
-        Invoke-WebRequest "https://huggingface.co/vinthony/SadTalker-V002rc/resolve/main/SadTalker_V0.0.2_256.safetensors" -OutFile  ".\checkpoints\SadTalker_V0.0.2_256.safetensors"
-        Invoke-WebRequest "https://huggingface.co/vinthony/SadTalker-V002rc/resolve/main/SadTalker_V0.0.2_512.safetensors" -OutFile  ".\checkpoints\SadTalker_V0.0.2_512.safetensors"
-        Invoke-WebRequest "https://huggingface.co/vinthony/SadTalker-V002rc/resolve/main/epoch_00190_iteration_000400000_checkpoint.pt" -OutFile ".\checkpoints\epoch_00190_iteration_000400000_checkpoint.pt"
-        Invoke-WebRequest "https://huggingface.co/vinthony/SadTalker-V002rc/resolve/main/mapping_00109-model.pth.tar" -OutFile ".\checkpoints\mapping_00109-model.pth.tar"
-        Invoke-WebRequest "https://huggingface.co/vinthony/SadTalker-V002rc/resolve/main/mapping_00229-model.pth.tar" -OutFile ".\checkpoints\mapping_00229-model.pth.tar "
     - name: Add conda to system path
       run: |    
         python inference.py --still --preprocess extcrop ----driven_audio ./examples/3.mp3
-        echo "a" >> .\result\1.txt
+        echo "a" >> .\results\1.txt
         git add .\results\
         git config --global user.name 'Your Name'
         git config --global user.email 'your-username@users.noreply.github.com'
