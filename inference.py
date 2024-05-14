@@ -19,7 +19,7 @@ def main(args):
 
     pic_path = args.source_image
     audio_path = args.driven_audio
-    save_dir = os.path.join(args.result_dir, strftime("%Y_%m_%d_%H.%M.%S"))
+    save_dir = os.path.join(args.result_dir)
     os.makedirs(save_dir, exist_ok=True)
     pose_style = args.pose_style
     device = args.device
@@ -125,7 +125,7 @@ if __name__ == '__main__':
     parser.add_argument("--preprocess", default='crop', choices=['crop', 'extcrop', 'resize', 'full', 'extfull'], help="how to preprocess the images" ) 
     parser.add_argument("--verbose",action="store_true", help="saving the intermedia output or not" ) 
     parser.add_argument("--old_version",action="store_true", help="use the pth other than safetensor version" ) 
-    parser.add_argument("--facerender", default='facevid2vid', choices=['pirender', 'facevid2vid'] ) 
+    parser.add_argument("--facerender", default='pirender', choices=['pirender', 'facevid2vid'] ) 
     
 
     # net structure and parameters
