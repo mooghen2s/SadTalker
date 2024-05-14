@@ -29,6 +29,7 @@ jobs:
       run: |
         #pip install torch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 --index-url https://download.pytorch.org/whl/cpu
         #pip install -r requirements.txt
+        mkdir .\checkpoints\
         Invoke-WebRequest "https://huggingface.co/vinthony/SadTalker-V002rc/resolve/main/SadTalker_V0.0.2_256.safetensors" -OutFile  ".\checkpoints\SadTalker_V0.0.2_256.safetensors"
         Invoke-WebRequest "https://huggingface.co/vinthony/SadTalker-V002rc/resolve/main/SadTalker_V0.0.2_512.safetensors" -OutFile  ".\checkpoints\SadTalker_V0.0.2_512.safetensors"
         Invoke-WebRequest "https://huggingface.co/vinthony/SadTalker-V002rc/resolve/main/epoch_00190_iteration_000400000_checkpoint.pt" -OutFile ".\checkpoints\epoch_00190_iteration_000400000_checkpoint.pt"
